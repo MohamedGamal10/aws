@@ -38,3 +38,4 @@ aws s3api delete-object --bucket devops1995 --key index.jpeg --profile devopsher
 #delete bucket
 aws s3api delete-bucket --bucket devops1995 --region eu-west-1 --profile devopshero
 
+#Custom policy
