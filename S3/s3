@@ -38,3 +38,14 @@ aws s3api delete-object --bucket devops1995 --key index.jpeg --profile devopsher
 #delete bucket
 aws s3api delete-bucket --bucket devops1995 --region eu-west-1 --profile devopshero
 
+
+#apply policy.json allow read access to the bucket
+aws s3api put-bucket-policy --bucket devops90-cli-bucket --policy file://policy.json
+
+#apply domain_policy.json
+aws s3api put-bucket-policy --bucket devops90-cli-bucket --policy file://domain_policy.json
+
+
+#Note the bucket have one policy if we add another policy it will be replaced,
+#you can add more permissions in the same  policy file
+
