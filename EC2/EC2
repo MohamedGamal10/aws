@@ -28,3 +28,4 @@ aws ec2 run-instances \
 
 aws ec2 terminate-instances --instance-ids i-0c031f241ec7fb582
 aws ec2 delete-security-group --group-id sg-03edc296191a2dcb0
+
