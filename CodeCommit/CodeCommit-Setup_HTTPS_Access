@@ -1,0 +1,21 @@
+# https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html
+
+# we have made the decision to close new customer access to AWS CodeCommit, effective July 25, 2024
+
+from root account
+1- add AWSCodeCommitFullAccess to IAM user or group 
+2- install git in clinet machine : sudo apt-get install git
+3- go to IAM user -> Security credentials -> HTTPs Git Credentials for aws CodeCommit -> Generate Credentials -> Download .csv file
+
+From Root Console
+4- Create Repository
+5- Copy HTTPs URL
+
+From client machine
+6- git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/test
+7- git config --global user.name "your name"
+8- git config --global user.email "your email"
+9- git config --global credential.helper '!aws codecommit credential-helper $@'
+10- git config --global credential.UseHttpPath true
+11- for make sure : git config --global --edit
+
