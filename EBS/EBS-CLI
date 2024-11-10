@@ -1,0 +1,28 @@
+# Create EBS Volume
+aws ec2 create-volume \
+    --volume-type io2 \
+    --size 12 \
+    --iops 6000 \
+    --availability-zone eu-north-1c \
+    --tag-specifications 'ResourceType=volume,Tags=[{Key=env,Value=production}, {Key=cost-center,Value=cc123} ]'
+
+
+# Attach EBS volume to EC2 instance - specify the volume-id and instance-id
+aws ec2 attach-volume 
+    --volume-id vol-xxx 
+    --instance-id i-xxx
+    --device /dev/sdf
+
+# Make EBS volume used on linux
+lsblk
+lsblk -f
+sudo mkfs -t ext4 /dev/nvme1n1
+lsblk
+mkdir /data
+sudo mount -t auto /dev/nvme1n1 /data
+# Be not if any restart happen the mount will be lost
+# if EC2 delete any volume attached will not delete
+
+# Delete Volume
+aws ec2 delete-volume --volume-id vol-xxx
+

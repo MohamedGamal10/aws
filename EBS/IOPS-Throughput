@@ -1,0 +1,62 @@
+# EBS – Measure the IOPS and Throughput of EBS volume
+
+# IOPs (Input/Output Operations Per Second)
+    - IOPs measures the number of discrete I/O operations (read or write commands),
+      a storage device or system can complete in one second.
+
+    - Higher IOPs indicate the ability to handle more individual requests per second, 
+      which is essential for applications requiring quick access to a large number of small files or database transactions.
+
+# Throughput
+    - Throughput measures the amount of data (in MB/s, GB/s, etc.) a storage system can transfer in one second.
+
+    - High throughput is crucial for applications that transfer large files, like media streaming or backup operations.
+
+
+# Choosing Between IOPs and Throughput
+
+    - High IOPs is preferable for workloads like OLTP (Online Transaction Processing), 
+      where there are many small transactions.
+
+    - High throughput is preferable for applications like data warehousing or video streaming,
+      where large, continuous data transfers are common.
+
+
+# install Fio Tool 
+apt install fio
+
+# Command
+# High IOPS and Low Throughput
+fio --name=write_iops \                 # Test name identifier
+    --size=4G \                         # Total size of test file to write
+    --time_based \                      # Run based on time instead of size
+    --run_time=60s \                    # Run test for 60 seconds
+    --ramp_time=2s \                    # Time to warm up before measurements
+    --ioengine=libaio \                 # Use Linux async I/O for testing
+    --direct=1 \                        # Use direct I/O (bypass OS cache)
+    --verify=0 \                        # Disable data verification
+    --bs=16k \                          # Block size for I/O operations
+    --iodepth=256 \                     # Number of I/O units to keep in flight
+    --rw=randwrite \                    # Random write workload pattern
+    --group_reporting=1 \               # Aggregate results in output
+    --iodepth_batch_submit=256 \        # Submit this many I/O at once
+    --iodepth_batch_complete_max=256 \  # Maximum number of I/O to complete at once
+
+
+#Change Block Size to 1 M
+#High Throughput and Low IOPS
+fio --name=write_iops \                 # Test name identifier
+    --size=4G \                         # Total size of test file to write
+    --time_based \                      # Run based on time instead of size
+    --run_time=60s \                    # Run test for 60 seconds
+    --ramp_time=2s \                    # Time to warm up before measurements
+    --ioengine=libaio \                 # Use Linux async I/O for testing
+    --direct=1 \                        # Use direct I/O (bypass OS cache)
+    --verify=0 \                        # Disable data verification
+    --bs=1M \                          # Block size for I/O operations
+    --iodepth=256 \                     # Number of I/O units to keep in flight
+    --rw=randwrite \                    # Random write workload pattern
+    --group_reporting=1 \               # Aggregate results in output
+    --iodepth_batch_submit=256 \        # Submit this many I/O at once
+    --iodepth_batch_complete_max=256 \  # Maximum number of I/O to complete at once
+
