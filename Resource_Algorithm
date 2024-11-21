@@ -1,0 +1,8 @@
+# Describe the resource
+# if resource not exist
+#   try create the resource 
+#   save resource id in a variable 
+# if there is an error
+#   exit with error code
+# else
+#   save resource id in a variable  
